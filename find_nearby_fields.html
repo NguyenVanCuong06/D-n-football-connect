@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Tìm Sân Bóng Gần Bạn</h1>
+
+        <div class="card p-4 shadow-sm mb-5">
+            <form class="row g-3">
+                <div class="col-md-5">
+                    <label for="field_type" class="form-label">Loại sân:</label>
+                    <select id="field_type" class="form-select">
+                        <option selected>Sân 7 người</option>
+                        <option>Sân 5 người</option>
+                        <option>Sân 11 người</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label for="current_location" class="form-label">Tìm kiếm quanh:</label>
+                    <input type="text" id="current_location" class="form-control" value="Vị trí hiện tại của tôi" disabled>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search"></i> Lọc Sân
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="mb-5">
+            <h4>Bản đồ Vị trí Sân</h4>
+            <div id="map-container" style="height: 400px; background-color: #e9e9e9; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #666;">
+                <p>Bản đồ vị trí các sân sẽ được tải ở đây</p>
+            </div>
+        </div>
+
+        <h2 class="mb-3">Kết quả ({{ field_list|length }} sân):</h2>
+        
+        {% if field_list %}
+            <div class="list-group">
+                {% for field in field_list %}
+                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">{{ field.name }}</h5>
+                        <p class="mb-1 text-muted">Địa chỉ: {{ field.address }}</p>
+                        <small class="text-success">
+                            <i class="fas fa-star"></i> {{ field.rating }} sao | Khoảng cách: **{{ field.distance }}**
+                        </small>
+                    </div>
+                    <a href="#" class="btn btn-info btn-sm">Xem Chi Tiết</a>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning text-center" role="alert">
+                Không tìm thấy sân bóng nào phù hợp gần vị trí của bạn.
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock content %}

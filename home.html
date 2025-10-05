@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="hero-section text-center py-5 mb-5" 
+         style="background: url({% static 'app/images/goal_net_background.jpg' %}) no-repeat center center; background-size: cover; color: white;">
+        
+        <h1 class="display-5 fw-bold mt-4">HỆ THỐNG HỖ TRỢ TÌM ĐỐI THỦ ĐỂ GHÉP NỐI</h1>
+        <p class="fs-5">Dữ liệu được cập nhật thường xuyên giúp người dùng tìm được sân một cách nhanh nhất</p>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-8">
+                <form class="d-flex bg-white p-2 rounded shadow-sm">
+                    <select class="form-select me-2 w-25" aria-label="Bóng đá">
+                        <option selected>Bóng đá</option>
+                    </select>
+                    <input class="form-control me-2" type="text" placeholder="Nhập tên sân hoặc địa chỉ...">
+                    <input class="form-control me-2" type="text" placeholder="Nhập khu vực">
+                    <button class="btn btn-warning text-dark" type="submit"><i class="fas fa-search"></i> Tìm kiếm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center mt-5 pt-5">
+        <div class="col-md-4">
+            <i class="fas fa-map-marker-alt fa-3x mb-3 text-primary"></i>
+            <h4>Tìm kiếm vị trí sân</h4>
+            <p>Dễ dàng lọc và tìm kiếm những người dùng có nhiều điểm tương đồng.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="fas fa-calendar-alt fa-3x mb-3 text-success"></i>
+            <h4>Kết nối online</h4>
+            <p>Đảm bảo phù hợp v.</p>
+        </div>
+        <div class="col-md-4">
+            <i class="fas fa-running fa-3x mb-3 text-danger"></i>
+            <h4>Tìm đội, bắt cặp đấu</h4>
+            <p>Kết nối với các đội bóng khác để tìm đối thủ phù hợp cho trận đấu giao hữu.</p>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="py-5">
+        <h2>Tin tức và Sự kiện Nổi bật</h2>
+        <div class="row">
+            {% for i in "123456789" %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Tin tức {{ i }}</h5>
+                        <p class="card-text">Đây là đoạn nội dung kéo dài trang web của bạn. Nó giúp trang web của bạn cuộn.</p>
+                        <a href="#" class="btn btn-sm btn-outline-info">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container-fluid bg-primary text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="text-warning">GIỚI THIỆU</h4>
+                    <p>FC2025 cung cấp các tiện ích thông minh giúp cho bạn tìm sân bãi và đặt sân một cách hiệu quả nhất.</p>
+                    <p><a href="{% url 'about' %}" class="text-white">Chính sách bảo mật</a></p>
+                    <p><a href="#" class="text-white">Chính sách hủy (đổi trả)</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="text-warning">THÔNG TIN</h4>
+                    <p><strong>CÔNG TY CỔ PHẦN FC2025</strong></p>
+                    <p>Địa chỉ: 56/3 ngõ 612/24/15 Đường La Thành, Phường Giảng Võ, Quận Ba Đình, Hà Nội</p>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="text-warning">LIÊN HỆ</h4>
+                    <p>Chăm sóc khách hàng:</p>
+                    <h4 class="text-success">0247.303.0247</h4>
+                    <a href="{% url 'contact' %}" class="btn btn-warning mt-2 text-dark">GỌI NGAY</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-primary text-white py-5">
+        <div class="container">
+            </div>
+    </div>
+    
+{% endblock content %}

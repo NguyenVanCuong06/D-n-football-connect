@@ -1,0 +1,45 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} 
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">{{ title }}</h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        {# Django/Crispy Forms tự động hiển thị lỗi trường, không cần khối if form.errors thủ công #}
+                        {# Nếu bạn vẫn muốn khối hiển thị lỗi tổng quan, hãy giữ lại #}
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                <strong>Lỗi chung:</strong>
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+                        
+                        {# Sử dụng bộ lọc |crispy để render form #}
+                        {{ form|crispy }} 
+                        
+                        <button type="submit" class="btn btn-success btn-lg mt-3">Tạo Đội Ngay</button>
+                        <a href="{% url 'team_list' %}" class="btn btn-secondary btn-lg mt-3">Hủy</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

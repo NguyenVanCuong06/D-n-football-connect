@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">{{ title }}</h1>
+    
+    <a href="{% url 'create_post' %}" class="btn btn-success mb-3">
+        <i class="fas fa-plus"></i> + Đăng Tin Mới
+    </a>
+
+    {% if posts %}
+        {% for post in posts %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-primary">{{ post.title }} 
+                    <small class="text-muted fst-italic"> - bởi {{ post.author.username }}</small>
+                </h5>
+                <p class="card-text">
+                    <strong>Nội dung:</strong> {{ post.content|truncatechars:100 }}<br>
+                    <strong>Thời gian:</strong> {{ post.match_time|date:"H:i d/m/Y" }}<br>
+                    <strong>Địa điểm:</strong> {{ post.location }}
+                </p>
+                <a href="#" class="btn btn-sm btn-outline-info">Xem chi tiết</a>
+                
+                {% if request.user.is_staff %}
+                    <a href="{% url 'admin_post_delete' pk=post.pk %}" class="btn btn-sm btn-danger">Xóa (Admin)</a>
+                {% endif %}
+
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            Chưa có bài đăng tìm đối thủ nào. Hãy là người đầu tiên đăng tin!
+        </div>
+    {% endif %}
+    
+</div>
+{% endblock content %}

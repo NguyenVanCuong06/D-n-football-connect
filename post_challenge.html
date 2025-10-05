@@ -1,0 +1,58 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Đăng Tin Tìm Đối Thủ</h2>
+        <p class="text-muted">Chọn đội của bạn và nhập thông tin trận đấu mong muốn.</p>
+
+        <form method="POST" class="p-4 border rounded shadow-sm bg-light">
+            {% csrf_token %}
+
+            <div class="row g-3">
+                
+                <div class="col-md-6">
+                    <label for="{{ form.posting_team.id_for_label }}" class="form-label">Đội Của Bạn</label>
+                    {{ form.posting_team }}
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="{{ form.required_sport_type.id_for_label }}" class="form-label">Loại Hình Sân Yêu Cầu</label>
+                    {{ form.required_sport_type }}
+                </div>
+                
+                <div class="col-12">
+                    <label for="{{ form.pitch_location.id_for_label }}" class="form-label">Địa Điểm/Sân Đấu</label>
+                    {{ form.pitch_location }}
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="{{ form.match_date.id_for_label }}" class="form-label">Ngày Thi Đấu</label>
+                    {{ form.match_date }}
+                </div>
+
+                <div class="col-md-6">
+                    <label for="{{ form.match_time.id_for_label }}" class="form-label">Khung Giờ</label>
+                    {{ form.match_time }}
+                </div>
+
+                <div class="col-12">
+                    <label for="{{ form.description.id_for_label }}" class="form-label">Yêu Cầu Thêm (Ví dụ: Đối thủ vui vẻ, ưu tiên đội đồng hạng)</label>
+                    {{ form.description }}
+                </div>
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success btn-lg w-100 mt-2">
+                        🚀 Đăng Tin Tìm Đối Thủ
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

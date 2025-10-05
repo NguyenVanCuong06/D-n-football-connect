@@ -1,0 +1,71 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Danh sách tin tìm đối thủ</h2> 
+    
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'post_challenge' %}" class="btn btn-success">
+            + Đăng Tin Mới
+        </a>
+    </div>
+    <form method="GET" class="p-3 border rounded mb-4 bg-light">
+        <div class="row g-3">
+            <div class="col-md-3">
+                {{ filter_form.required_sport_type.label_tag }}
+                {{ filter_form.required_sport_type }}
+            </div>
+            
+            <div class="col-md-4">
+                {{ filter_form.pitch_location.label_tag }}
+                {{ filter_form.pitch_location }}
+            </div>
+            
+            <div class="col-md-3">
+                {{ filter_form.match_date_start.label_tag }}
+                {{ filter_form.match_date_start }}
+            </div>
+            
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Lọc Tin</button>
+            </div>
+        </div>
+    </form>
+    <p class="text-muted">Tổng cộng: {{ challenges.count }} tin đang mở phù hợp.</p>
+
+    {% for challenge in challenges %}
+    <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-7">
+                    <h5 class="card-title text-primary">{{ challenge.posting_team.name }}</h5>
+                    <p class="card-text">
+                        <strong>Địa điểm:</strong> {{ challenge.pitch_location }} <br/>
+                        <strong>Thời gian:</strong> {{ challenge.match_date|date:"d/m/Y" }} lúc {{ challenge.match_time|time:"H:i" }} <br/>
+                        <strong>Loại hình:</strong> {{ challenge.get_required_sport_type_display }}
+                    </p>
+                </div>
+                
+                <div class="col-md-5 text-end d-flex align-items-center justify-content-end">
+                    <div class="text-start">
+                        <p class="mb-1">
+                            👤 **Liên hệ:** <strong class="text-dark">{{ challenge.contact_name }}</strong>
+                        </p>
+                        <p class="mb-1">
+                            📞 **Điện thoại:** <strong class="text-success">{{ challenge.contact_phone }}</strong>
+                        </p>
+                        <a href="{% url 'challenge_detail' pk=challenge.pk %}" class="btn btn-sm btn-outline-info mt-2">Xem Chi Tiết</a>
+                    </div>
+                </div>
+            </div>
+            <p class="text-secondary mt-2 small">Được đăng bởi {{ challenge.author.username }} vào {{ challenge.date_posted|date:"H:i d/m/Y" }}</p>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-warning">
+        Hiện không có đội nào đang tìm đối thủ. Hãy quay lại sau!
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

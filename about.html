@@ -1,0 +1,63 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="text-center py-4">
+        <h1 class="display-4">Giới thiệu</h1>
+        <p class="lead">Bạn muốn đăng ký sử dụng phần mềm quản lý sân FC2025 MIỄN PHÍ?</p>
+    </div>
+
+    <div class="container-fluid bg-warning text-dark py-5 mb-5">
+        <div class="container">
+            <div class="row align-items-center">
+                
+                <div class="col-md-4 text-center">
+                    <img src="{% static 'images/football_player_placeholder.png' %}" alt="Cầu thủ" class="img-fluid" style="max-height: 250px;">
+                </div>
+                
+                <div class="col-md-8">
+                    <h3 class="mb-4">Hệ thống FC2025 giúp gì cho bạn?</h3>
+                    <div class="row g-3">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="Họ & tên *" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="tel" class="form-control" placeholder="Số điện thoại *" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" placeholder="Email *" required>
+                        </div>
+                        <div class="col-12 text-end">
+                            <button class="btn btn-primary btn-lg">GỬI</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>GIỚI THIỆU</h4>
+                <p>FC2025 cung cấp các tiện ích thông minh giúp cho bạn tìm đội bóng phù hợp với yêu cầu nhất.</p>
+                <p><a href="#">Chính sách bảo mật</a></p>
+                <p><a href="#">Chính sách hủy (đổi trả)</a></p>
+            </div>
+            <div class="col-md-4">
+                <h4>THÔNG TIN</h4>
+                <p><strong>CÔNG TY CỔ PHẦN FC2025</strong></p>
+                <p>Địa chỉ: Đại học Thuỷ Lợi, Thành phố Hà Nội, Việt Nam</p>
+            </div>
+            <div class="col-md-4">
+                <h4>LIÊN HỆ</h4>
+                <p>Chăm sóc khách hàng:</p>
+                <h4 class="text-success">010101010101</h4>
+                <button class="btn btn-warning mt-2">GỌI NGAY</button>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-4">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Danh sách các đội tham gia</h2>
+            
+            <div>
+                <a href="{% url 'post_challenge' %}" class="btn btn-success btn-lg me-2">
+                    📢 Đăng Tin Tìm Đối Thủ
+                </a>
+                
+                <a href="{% url 'team_create' %}" class="btn btn-primary btn-lg">
+                    + Tạo Đội Bóng Mới
+                </a>
+            </div>
+        </div>
+        
+        <form method="GET" class="mb-4 p-3 border rounded shadow-sm bg-light">
+            <div class="row align-items-end">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    {{ form.sport_type.label_tag }}
+                    {{ form.sport_type }}
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    {{ form.location.label_tag }}
+                    {{ form.location }}
+                </div>
+                <div class="col-md-2 mb-3 mb-md-0">
+                    <div class="form-check">
+                        {{ form.is_available }}
+                        {{ form.is_available.label_tag }}
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3 mb-md-0">
+                    <div class="form-check">
+                        {{ form.is_recruiting }}
+                        {{ form.is_recruiting.label_tag }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-info w-100">Lọc Đội</button>
+                </div>
+            </div>
+        </form>
+        <h3>Kết quả ({{ teams.count }} đội):</h3>
+        {% if teams %}
+            <ul class="list-group">
+                {% for team in teams %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ team.name }}</strong> ({{ team.get_sport_type_display }})
+                        </div>
+                        <div>
+                            <span class="badge bg-secondary">{{ team.location }}</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary ms-2">Xem chi tiết</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted">Không tìm thấy đội nào phù hợp với tiêu chí lọc.</p>
+        {% endif %}
+    </div>
+{% endblock %}

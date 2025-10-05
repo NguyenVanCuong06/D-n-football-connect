@@ -1,0 +1,57 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3>Chi tiết Thách đấu: {{ challenge.posting_team.name }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>Thông tin Trận đấu</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Trạng thái:</strong> 
+                            <span class="badge bg-success">{{ challenge.get_status_display }}</span>
+                        </li>
+                        <li class="list-group-item"><strong>Đội đăng tin:</strong> {{ challenge.posting_team.name }}</li>
+                        <li class="list-group-item"><strong>Địa điểm:</strong> {{ challenge.pitch_location }}</li>
+                        <li class="list-group-item">
+                            <strong>Thời gian:</strong> 
+                            {{ challenge.match_date|date:"l, d/m/Y" }} lúc {{ challenge.match_time|time:"H:i" }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Yêu cầu loại hình:</strong> {{ challenge.get_required_sport_type_display }}
+                        </li>
+                    </ul>
+
+                    <h4 class="mt-4">Mô tả & Yêu cầu</h4>
+                    <p class="card-text border p-3 bg-light">{{ challenge.description|default:"(Không có mô tả chi tiết)" }}</p>
+
+                    <p class="text-muted small mt-3">
+                        Bài đăng được tạo bởi {{ challenge.author.username }} vào {{ challenge.date_posted|date:"H:i d/m/Y" }}
+                    </p>
+                </div>
+
+                <div class="col-md-4 text-center border-start d-flex flex-column justify-content-center">
+                    {% if challenge.status == 'open' %}
+                        {% if request.user.is_authenticated %}
+                            <button class="btn btn-success btn-lg my-2" type="button">Gửi Lời Thách Đấu</button>
+                            <p class="text-muted small">Hãy liên hệ để chốt kèo!</p>
+                        {% else %}
+                            <p class="alert alert-info">Vui lòng <a href="{% url 'login' %}">Đăng nhập</a> để gửi lời thách đấu.</p>
+                        {% endif %}
+                    {% else %}
+                        <p class="alert alert-warning">Tin này đã được chốt kèo hoặc kết thúc.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+             <a href="{% url 'challenge_list' %}" class="btn btn-secondary">← Quay lại Danh sách</a>
+             <a href="{% url 'challenge_detail' pk=challenge.pk %}" class="btn btn-outline-info me-2">Xem Chi Tiết</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

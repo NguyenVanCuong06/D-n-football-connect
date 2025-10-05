@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-danger shadow-lg">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Xác Nhận Xóa Bài Đăng</h4>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Bạn có chắc chắn muốn xóa bài đăng này không?</p>
+                    <h5 class="card-title text-primary">"{{ object.title }}"</h5>
+                    <p class="card-text">
+                        **Nội dung:** {{ object.content|truncatechars:150 }} <br>
+                        **Người đăng:** {{ object.author.username }} <br>
+                        **Ngày đăng:** {{ object.created_at|date:"d/m/Y H:i" }}
+                    </p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <p class="text-danger mt-3">Hành động này không thể hoàn tác.</p>
+                        
+                        <a href="{% url 'admin_post_list' %}" class="btn btn-secondary me-2">
+                            <i class="fas fa-arrow-left"></i> Hủy bỏ
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i> Tôi chắc chắn, Xóa ngay
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
